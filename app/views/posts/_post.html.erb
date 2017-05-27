@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+<% if post.facebook == true %><span class="label label-primary">Facebook</span><% end %>
+<% if post.twitter == true %><span class="label label-info">Twitter</span><% end %>
+Scheduled on <%= post.scheduled_at %>
+</div>
+<div class="panel-body">
+<%= post.content %>
+</div>
+<div class="panel-footer">
+<p><%= post.state.capitalize %></p>
+<%= link_to "Cancel", cancel_post_path(post), method: :put if post.state == "scheduled" %>
+</div>
+</div>
