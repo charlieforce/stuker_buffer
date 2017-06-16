@@ -74,6 +74,7 @@ gem 'omniauth-instagram'
 gem 'omniauth-tumblr'
 
 # Upload file
+gem 'rmagick', '~> 2.15', '>= 2.15.4', groups: [:production]
 gem "paperclip", "~> 5.0.0" # For upload photo
 gem 'paperclip-av-transcoder' # For upload video
 
