@@ -265,4 +265,7 @@ Devise.setup do |config|
 
   # Debug OmniAuth
   OmniAuth.config.logger = Rails.logger if Rails.env.development?
+
+  #Production
+  config.secret_key = 'f06b5793e477bfd633c9fa7062c7ed79cb7d8190e28876e6670b2b859eb51d6932f2eb24889ad749426c5045375ad37e12bbee8edfaa84a683bd8e3dd7749ec4'
 end
