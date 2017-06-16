@@ -2,8 +2,7 @@ class ConnectionsController < ApplicationController
 	before_action :set_connection, only: [:destroy]
 
   def create    
-    connection = current_user.connections.create_from_omniauth(auth_hash)
-    logger.debug "==AAA==#{connection.inspect}"
+    connection = current_user.connections.create_from_omniauth(auth_hash)    
     if connection.save
       redirect_to dashboard_path, notice: "Connection created!"
     else

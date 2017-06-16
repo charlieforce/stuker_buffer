@@ -58,6 +58,7 @@ gem 'devise'
 
 gem 'dotenv-rails', groups: [:development]
 
+# OmniAuth 
 gem 'omniauth'
 
 gem 'omniauth-twitter'
@@ -72,6 +73,7 @@ gem 'omniauth-instagram'
 
 gem 'omniauth-tumblr'
 
+# Upload file
 gem "paperclip", "~> 5.0.0" # For upload photo
 gem 'paperclip-av-transcoder' # For upload video
 
