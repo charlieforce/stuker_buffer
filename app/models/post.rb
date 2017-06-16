@@ -11,12 +11,15 @@ class Post < ActiveRecord::Base
   	validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
   	
   	# Video  	
-  	has_attached_file :video, styles: {
-    	medium: {geometry: "640x480", format:'mp4'},
-    	thumb: {geometry: "100x100#", format:'jpg', time: 10}
-    }, processors: [:transcoder]
-  	validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
-  	validates_attachment :video, size: {less_than: 500.megabytes}
+  	has_attached_file :video, styles: { medium: "300x300>", thumb: "100x100>" }
+  	validates_attachment_content_type :video, content_type: /\Avideo\/.*\z/
+
+  	# has_attached_file :video, styles: {
+   #  	medium: {geometry: "640x480", format:'mp4'},
+   #  	thumb: {geometry: "100x100#", format:'jpg', time: 10}
+   #  }, processors: [:transcoder]
+  	# validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
+  	# validates_attachment :video, size: {less_than: 500.megabytes}
 
 	def schedule
 		begin
@@ -47,8 +50,8 @@ class Post < ActiveRecord::Base
 		client = Twitter::REST::Client.new do |config|
 			config.access_token = self.user.twitter.oauth_token
 			config.access_token_secret = self.user.twitter.secret
-			config.consumer_key = ENV['TWITTER_KEY']
-			config.consumer_secret = ENV['TWITTER_SECRET']
+			config.consumer_key = 'uPeNCwSluigzuA39sF3NM9gfD' #ENV['TWITTER_KEY']
+			config.consumer_secret = 'E3vS7fUCz6fEV3oQcEprVoeRMrlLwg5CF5mLYFY5UEGxMVswSA' #ENV['TWITTER_SECRET']
 		end
 		client.update(self.content)
 	end
