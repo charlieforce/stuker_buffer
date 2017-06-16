@@ -11,6 +11,7 @@ Scheduled on <%= post.scheduled_at %>
 <div class="panel-body">
 <%= post.content %><br/>
 <% if post.photo.exists? %><%= image_tag post.photo.url, :size => "300x300" %><% end %>
+<% if post.video.exists? %><%= video_tag post.video.url, :size => "320x240", :controls => true %><% end %>
 </div>
 <div class="panel-footer">
 <p><%= post.state.capitalize %></p>
