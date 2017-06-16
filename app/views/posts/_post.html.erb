@@ -2,10 +2,18 @@
 <div class="panel-heading">
 <% if post.facebook == true %><span class="label label-primary">Facebook</span><% end %>
 <% if post.twitter == true %><span class="label label-info">Twitter</span><% end %>
+<% if post.google_oauth2 == true %><span class="label label-danger">Google</span><% end %>
+<% if post.instagram == true %><span class="label label-primary">Instagram</span><% end %>
+<% if post.pinterest == true %><span class="label label-danger">Pinterest</span><% end %>
+<% if post.tumblr == true %><span class="label label-success">Tumblr</span><% end %>
 Scheduled on <%= post.scheduled_at %>
 </div>
 <div class="panel-body">
-<%= post.content %>
+<%= post.content %><br/>
+<% if post.photo.exists? %><%= image_tag post.photo.url, :size => "300x300" %><% end %>
+<% if post.video.exists? %>
+<%= video_tag post.video.url(:medium), controls: true, type: "video/mp4", size: "400x400" %>
+<% end %>
 </div>
 <div class="panel-footer">
 <p><%= post.state.capitalize %></p>

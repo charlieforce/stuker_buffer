@@ -73,6 +73,7 @@ gem 'omniauth-instagram'
 gem 'omniauth-tumblr'
 
 gem "paperclip", "~> 5.0.0" # For upload photo
+gem 'paperclip-av-transcoder' # For upload video
 
 gem 'validates_timeliness', '~> 3.0'
 
