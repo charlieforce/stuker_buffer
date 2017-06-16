@@ -11,12 +11,15 @@ class Post < ActiveRecord::Base
   	validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
   	
   	# Video
-  	has_attached_file :video, styles: {
-    	medium: {geometry: "640x480", format:'mp4'},
-    	thumb: {geometry: "100x100#", format:'jpg', time: 10}
-    }, processors: [:transcoder]
+  	has_attached_file :video
   	validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
-  	validates_attachment :video, size: {less_than: 500.megabytes}
+
+    # has_attached_file :video, styles: {
+    # 	medium: {geometry: "640x480", format:'mp4'},
+    # 	thumb: {geometry: "100x100#", format:'jpg', time: 10}
+    # }, processors: [:transcoder]
+  	# validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
+  	# validates_attachment :video, size: {less_than: 500.megabytes}
 
 	def schedule
 		begin
