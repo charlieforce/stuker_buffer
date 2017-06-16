@@ -53,9 +53,19 @@ gem 'devise'
 
 gem 'dotenv-rails', groups: [:development]
 
+gem 'omniauth'
+
 gem 'omniauth-twitter'
 
 gem 'omniauth-facebook'
+
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth-pinterest'
+
+gem 'omniauth-instagram'
+
+gem 'omniauth-tumblr'
 
 gem 'validates_timeliness', '~> 3.0'
 
