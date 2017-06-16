@@ -6,6 +6,12 @@ class Post < ActiveRecord::Base
 	validates_datetime :scheduled_at, :on => :create, :on_or_after => Time.zone.now
 	after_create :schedule
 
+	has_attached_file :photo, styles: { medium: "300x300>", thumb: "100x100>" }
+  	validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
+
+  	has_attached_file :video  	
+  	validates_attachment_content_type :video, :content_type => /\Avideo\/.*\Z/  
+
 	def schedule
 		begin
 			ScheduleJob.set(wait_until: scheduled_at).perform_later(self)

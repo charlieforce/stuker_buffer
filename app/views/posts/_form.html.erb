@@ -3,6 +3,10 @@
 
 <div class="form-inputs">
 <%= f.input :content, required: true, maxlength: 140 %>
+<%= f.label :photo %>
+<%= f.file_field :photo %>
+<%= f.label :video %>
+<%= f.file_field :video %>
 <p>This post will be scheduled in <b><%= Time.zone.name %></b> time</p>
 <%= f.input :scheduled_at, required: true, as: :datetime_picker %>
 </div>
@@ -13,6 +17,18 @@
 	<% end %>
 	<% if current_user.connections.where(provider: "twitter").any? %>
 	<%= f.input :twitter %>
+	<% end %>
+	<% if current_user.connections.where(provider: "google_oauth2").any? %>
+	<%= f.input :google_oauth2 %>
+	<% end %>
+	<% if current_user.connections.where(provider: "instagram").any? %>
+	<%= f.input :instagram %>
+	<% end %>
+	<% if current_user.connections.where(provider: "pinterest").any? %>
+	<%= f.input :pinterest %>
+	<% end %>
+	<% if current_user.connections.where(provider: "tumblr").any? %>
+	<%= f.input :tumblr %>
 	<% end %>
 </div>
 

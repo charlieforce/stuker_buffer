@@ -72,6 +72,8 @@ gem 'omniauth-instagram'
 
 gem 'omniauth-tumblr'
 
+gem "paperclip", "~> 5.0.0" # For upload photo
+
 gem 'validates_timeliness', '~> 3.0'
 
 gem 'momentjs-rails', '~> 2.9', github: 'derekprior/momentjs-rails'
