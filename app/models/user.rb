@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
    def twitter
    	self.connections.where(provider: "twitter").first
    end
+
+   def pinterest
+    self.connections.where(provider: "pinterest").first
+   end
 end

@@ -133,7 +133,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.6)
-    koala (2.0.0)
+    koala (1.10.1)
       addressable
       faraday
       multi_json
@@ -314,7 +314,7 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
-  koala
+  koala (~> 1.10.0rc)
   momentjs-rails (~> 2.9)!
   omniauth
   omniauth-facebook (= 4.0.0)

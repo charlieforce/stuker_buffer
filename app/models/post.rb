@@ -54,7 +54,7 @@ class Post < ActiveRecord::Base
 				end				
 			end
 			self.update_attributes(state: "posted")
-		rescue Exception => e
+		rescue Exception => e			
 			self.update_attributes(state: "posting error", error: e.message)
 		end
 	end
@@ -69,9 +69,14 @@ class Post < ActiveRecord::Base
 		client.update(self.content)
 	end
 
-	def to_facebook
+	def to_facebook		
 		graph = Koala::Facebook::API.new(self.user.facebook.oauth_token)
 		graph.put_connections("me", "feed", message: self.content)
+
+		if self.photo.url
+			photoUrl = ApplicationController.helpers.asset_url(self.user.post.photo.url(:style))
+			graph.put_picture(photoUrl)
+		end
 	end
 
 	def to_google_oauth2
@@ -86,9 +91,9 @@ class Post < ActiveRecord::Base
 		client = Pinterest::Client.new(self.user.pinterest.oauth_token)
 		client.create_pin({
 		  # board: client.get_boards.id,
-		  note: self.content
-		  link: request.original_url,
-		  image_url: Faraday::UploadIO.new(self.photo.url, "image/<image_type>")
+		  note: self.content,
+		  link: 'https://stucker.herokuapp.com',
+		  image_url: self.photo.url
 		})
 	end
 

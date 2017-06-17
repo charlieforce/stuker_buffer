@@ -85,7 +85,7 @@ gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: '
 
 gem 'twitter'
 
-gem 'koala'
+gem "koala", "~> 1.10.0rc" # Facebook API
 
 gem 'delayed_job_active_record'
 
