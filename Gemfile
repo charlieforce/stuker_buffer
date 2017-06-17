@@ -68,6 +68,7 @@ gem 'omniauth-facebook', '= 4.0.0'
 gem 'omniauth-google-oauth2'
 
 gem 'omniauth-pinterest'
+gem 'pinterest-api'
 
 gem 'omniauth-instagram'
 
