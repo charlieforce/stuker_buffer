@@ -73,10 +73,10 @@ class Post < ActiveRecord::Base
 		graph = Koala::Facebook::API.new(self.user.facebook.oauth_token)
 		graph.put_connections("me", "feed", message: self.content)
 
-		if self.photo.url
-			photoUrl = ApplicationController.helpers.asset_url(self.user.post.photo.url(:style))
-			graph.put_picture(photoUrl)
-		end
+		# if self.photo.url
+			# photoUrl = ApplicationController.helpers.asset_url(self.user.post.photo.url(:style))
+			# graph.put_picture('https://static.pexels.com/photos/207962/pexels-photo-207962.jpeg')
+		# end
 	end
 
 	def to_google_oauth2
@@ -89,6 +89,7 @@ class Post < ActiveRecord::Base
 
 	def to_pinterest
 		client = Pinterest::Client.new(self.user.pinterest.oauth_token)
+		logger.debug "====PIN==#{client.inspect}"
 		client.create_pin({
 		  # board: client.get_boards.id,
 		  note: self.content,
