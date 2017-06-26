@@ -69,7 +69,7 @@ class Post < ActiveRecord::Base
 				config.consumer_key =  ENV['TWITTER_KEY']
 				config.consumer_secret =  ENV['TWITTER_SECRET']
 			end
-			file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
+			file_url = "/public#{self.attachment.url(:original, timestamp: false)}"
 			if File.exist?(file_url)
 				client.update_with_media(self.content, File.open(file_url))
 			else
