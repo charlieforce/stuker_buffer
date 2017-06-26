@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-	before_action :set_post, only: [:cancel]
+	before_action :set_post, only: [:cancel]	
 
 	def new
 		if current_user.connections.any?

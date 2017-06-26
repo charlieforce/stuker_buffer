@@ -17,7 +17,20 @@ class User < ActiveRecord::Base
    	self.connections.where(provider: "twitter").first
    end
 
+   def google_oauth2
+    self.connections.where(provider: "google_oauth2").first
+   end
+
+   def instagram
+    self.connections.where(provider: "instagram").first
+   end
+
    def pinterest
     self.connections.where(provider: "pinterest").first
    end
+
+   def tumblr
+    self.connections.where(provider: "tumblr").first
+   end
+   
 end

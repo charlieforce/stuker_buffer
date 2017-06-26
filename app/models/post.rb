@@ -60,24 +60,35 @@ class Post < ActiveRecord::Base
 		end
 	end
 
-	def to_twitter
+	def to_twitter	
 		client = Twitter::REST::Client.new do |config|
 			config.access_token = self.user.twitter.oauth_token
 			config.access_token_secret = self.user.twitter.secret
-			config.consumer_key = ENV['TWITTER_KEY']
-			config.consumer_secret ENV['TWITTER_SECRET']
+
+			# Production
+			config.consumer_key =  ENV['TWITTER_KEY']
+			config.consumer_secret =  ENV['TWITTER_SECRET']
+
+			# Development
+			# config.consumer_key 	=  'uPeNCwSluigzuA39sF3NM9gfD'
+			# config.consumer_secret 	=  'E3vS7fUCz6fEV3oQcEprVoeRMrlLwg5CF5mLYFY5UEGxMVswSA'
 		end
-		client.update(self.content)
+		file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
+		if File.exist?(file_url)
+			client.update_with_media(self.content, File.open(file_url))
+		else
+			client.update(self.content)
+		end
 	end
 
 	def to_facebook		
 		graph = Koala::Facebook::API.new(self.user.facebook.oauth_token)
 		graph.put_connections("me", "feed", message: self.content)
 
-		# if self.photo.url
-			# photoUrl = ApplicationController.helpers.asset_url(self.user.post.photo.url(:style))
-			# graph.put_picture('https://static.pexels.com/photos/207962/pexels-photo-207962.jpeg')
-		# end
+		file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
+		if File.exist?(file_url)
+			graph.put_picture(file_url)
+		end		
 	end
 
 	def to_google_oauth2
