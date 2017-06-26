@@ -33,6 +33,6 @@ class PostsController < ApplicationController
 	end
 
 	def post_params
-		params.require(:post).permit(:content, :scheduled_at, :state, :user_id, :facebook, :twitter, :google_oauth2, :instagram, :pinterest, :tumblr, :photo, :video)
+		params.require(:post).permit(:content, :scheduled_at, :state, :user_id, :facebook, :twitter, :google_oauth2, :instagram, :pinterest, :tumblr, :attachment)
 	end
 end

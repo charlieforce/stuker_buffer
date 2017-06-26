@@ -6,22 +6,23 @@ class Post < ActiveRecord::Base
 	validates_datetime :scheduled_at, :on => :create, :on_or_after => Time.zone.now
 	after_create :schedule
 
-	# Photo
-	has_attached_file :photo, styles: { medium: "300x300>", thumb: "100x100>" }
-  	validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
+	# file attachment
+	has_attached_file :attachment, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+	validates_attachment_content_type :attachment, :content_type => ["video/mp4", "image/jpg", "image/jpeg", "image/png", "image/gif"]
+
+
+  	# has_attached_file :attachment,
+   #      styles: lambda { |a| a.instance.is_image? ? {:small => "x200>", :medium => "x300>", :large => "x400>"}  : {:thumb => { :geometry => "100x100#", :format => 'jpg', :time => 10}, :medium => { :geometry => "300x300#", :format => 'jpg', :time => 10}}},
+   #      :processors => lambda { |a| a.is_video? ? [ :ffmpeg ] : [ :thumbnail ] }
+
+   #  def is_video?
+   #      attachment.instance.attachment_content_type =~ %r(video)
+   #  end
+
+   #  def is_image?
+   #      attachment.instance.attachment_content_type =~ %r(image)
+   #  end
   	
-  	# Video upload normal
-  	# has_attached_file :video
-  	# validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
-
-  	# Video upload with encode
-    has_attached_file :video, styles: {
-    	medium: {geometry: "640x480", format:'mp4'},
-    	thumb: {geometry: "100x100#", format:'jpg', time: 10}
-    }, processors: [:transcoder]
-  	validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
-  	validates_attachment :video, size: {less_than: 500.megabytes}
-
 	def schedule
 		begin
 			ScheduleJob.set(wait_until: scheduled_at).perform_later(self)

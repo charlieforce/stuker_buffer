@@ -10,13 +10,7 @@ Scheduled on <%= post.scheduled_at %>
 </div>
 <div class="panel-body">
 <%= post.content %><br/>
-<% if post.photo.exists? %><%= image_tag post.photo.url, :size => "300x300" %><% end %>
-<% if post.video.exists? %>
-<video width="400" controls>
-  <source src="/system/posts/videos/000/000/007/original/SampleVideo_1280x720_2mb.mp4" type="video/mp4">  
-  Your browser does not support HTML5 video.
-</video>
-<% end %>
+<% if post.attachment.exists? %><%= image_tag post.attachment.url, :size => "300x300" %><% end %>
 </div>
 <div class="panel-footer">
 <p><%= post.state.capitalize %></p>

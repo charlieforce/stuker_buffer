@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616101938) do
+ActiveRecord::Schema.define(version: 20170626025942) do
 
   create_table "connections", force: :cascade do |t|
     t.string   "provider"
@@ -49,17 +49,13 @@ ActiveRecord::Schema.define(version: 20170616101938) do
     t.boolean  "instagram"
     t.boolean  "pinterest"
     t.boolean  "tumblr"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.text     "error"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
-    t.string   "video_file_name"
-    t.string   "video_content_type"
-    t.integer  "video_file_size"
-    t.datetime "video_updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
