@@ -69,7 +69,7 @@ class Post < ActiveRecord::Base
 				config.consumer_key =  ENV['TWITTER_KEY']
 				config.consumer_secret =  ENV['TWITTER_SECRET']
 			end
-			file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
+			file_url = "/public#{self.attachment.url(:original, timestamp: false)}"
 			if File.exist?(file_url)
 				client.update_with_media(self.content, File.open(file_url))
 			else
@@ -95,17 +95,11 @@ class Post < ActiveRecord::Base
 
 	def to_facebook		
 		graph = Koala::Facebook::API.new(self.user.facebook.oauth_token)
-		file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"		
-		if File.exist?(file_url)
-			if self.attachment.content_type == 'image/jpeg'
-				graph.put_picture(file_url, {:caption => self.content}, "me")
-			end
+		graph.put_connections("me", "feed", message: self.content)
 
-			if self.attachment.content_type == 'video/mp4'
-				graph.put_video(file_url, {:caption => self.content}, "me")
-			end
-		else
-			graph.put_connections("me", "feed", message: self.content)
+		file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
+		if File.exist?(file_url)
+			graph.put_picture(file_url)
 		end		
 	end
 
@@ -118,22 +112,14 @@ class Post < ActiveRecord::Base
 	end
 
 	def to_pinterest
-		client = Pinterest::Client.new(self.user.pinterest.oauth_token)		
-		file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
-		if File.exist?(file_url)
-			client.create_pin({
-			  # board: client.get_boards.id,
-			  note: self.content,
-			  link: 'https://stucker.herokuapp.com',
-			  image_url: self.photo.url
-			})
-		else
-			client.create_pin({
-			  # board: client.get_boards.id,
-			  note: self.content,
-			  link: 'https://stucker.herokuapp.com'
-			})
-		end
+		client = Pinterest::Client.new(self.user.pinterest.oauth_token)
+		logger.debug "====PIN==#{client.inspect}"
+		client.create_pin({
+		  # board: client.get_boards.id,
+		  note: self.content,
+		  link: 'https://stucker.herokuapp.com',
+		  image_url: self.photo.url
+		})
 	end
 
 	def to_tumblr
