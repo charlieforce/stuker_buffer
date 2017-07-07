@@ -38,6 +38,7 @@ fa_icon "camera-retro"
 <% unless current_user.connections.where(provider: "pinterest").any? %>
 <%= link_to "Connect with Pinterest", "/auth/pinterest", class: "btn btn-danger btn-block btn-sm" %>
 <% else %>
+<i class="fa fa-check"></i>
 <%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "pinterest").first), class: "btn btn-danger btn-block fa fa-pinterest btn-lg", method: :delete %>
 <% end %>
 
