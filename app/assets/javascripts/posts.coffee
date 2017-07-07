@@ -13,7 +13,6 @@ $(document).on 'page:change', ->
 
     $('#maxCharacters').html text_remaining + ' characters remaining'
     if text_remaining <= 10
-      $('#maxCharacters').css 'color', 'red'
-      
+      $('#maxCharacters').css 'color', 'red'    
     return
   return

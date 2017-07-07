@@ -9,6 +9,7 @@
 <%= link_to "change", edit_user_registration_path %>
 </div>
 <hr>
+
 <div class="social">
 <% unless current_user.connections.where(provider: "twitter").any? %>
 <%= link_to "Connect with Twitter", "/auth/twitter", class: "btn btn-info btn-block btn-sm" %>
