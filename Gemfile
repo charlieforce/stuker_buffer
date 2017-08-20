@@ -56,6 +56,9 @@ gem 'simple_form'
 
 gem 'devise'
 
+# admin panel
+gem "activeadmin", git: "https://github.com/gregbell/active_admin"
+
 gem 'dotenv-rails', groups: [:development]
 
 # OmniAuth 

@@ -12,45 +12,69 @@
 
 <div class="social">
 <% unless current_user.connections.where(provider: "twitter").any? %>
-<%= link_to "Connect with Twitter", "/auth/twitter", class: "btn btn-info btn-block btn-sm" %>
+	<%= link_to "/auth/twitter",:class=>"btn btn-block btn-social btn-twitter" do %>
+	  <i class="fa fa-twitter"></i> Connect with Twitter
+	<% end %>
 <% else %>
-<%= link_to "Connect with Twitter", "/auth/twitter", class: "btn btn-info btn-block btn-sm", disabled: true %>
-<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "twitter").first), method: :delete %>
+	<%= link_to "/auth/twitter",:class=>"btn btn-block btn-social btn-twitter",:disabled=>true do %>
+	  <i class="fa fa-twitter"></i> Connect with Twitter
+	<% end %>
+	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "twitter").first), method: :delete %>
 <% end %>
 
 <% unless current_user.connections.where(provider: "facebook").any? %>
-<%= link_to "Connect with Facebook", "/auth/facebook", class: "btn btn-primary btn-block btn-sm" %>
+	<%= link_to "/auth/facebook",:class=>"btn btn-block btn-social btn-facebook" do %>
+	  <i class="fa fa-facebook"></i> Connect with Facebook
+	<% end %>
 <% else %>
-<%= link_to "Connect with Facebook", "/auth/facebook", class: "btn btn-primary btn-block btn-sm", disabled: true %>
-<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "facebook").first), method: :delete %>
+	<%= link_to "/auth/facebook",:class=>"btn btn-block btn-social btn-facebook",:disabled=>true do %>
+	  <i class="fa fa-facebook"></i> Connect with Facebook
+	<% end %>
+	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "facebook").first), method: :delete %>
 <% end %>
 
 <% unless current_user.connections.where(provider: "google_oauth2").any? %>
-<%= link_to "Connect with Google", "/auth/google_oauth2", class: "btn btn-danger btn-block btn-sm" %>
+	<%= link_to "/auth/google_oauth2",:class=>"btn btn-block btn-social btn-google-plus" do %>
+	  <i class="fa fa-google"></i> Connect with Google
+	<% end %>
 <% else %>
-<%= link_to "Connect with Google", "/auth/google_oauth2", class: "btn btn-danger btn-block btn-sm", disabled: true %>
-<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "google_oauth2").first), method: :delete %>
+	<%= link_to "/auth/google_oauth2",:class=>"btn btn-block btn-social btn-google-plus",:disabled=>true do %>
+	  <i class="fa fa-google"></i> Connect with Google
+	<% end %>
+	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "google_oauth2").first), method: :delete %>
 <% end %>
 
 <% unless current_user.connections.where(provider: "instagram").any? %>
-<%= link_to "Connect with Instagram", "/auth/instagram", class: "btn btn-info btn-block btn-sm" %>
+	<%= link_to "/auth/instagram",:class=>"btn btn-block btn-social btn-instagram" do %>
+	  <i class="fa fa-instagram"></i> Connect with Instagram
+	<% end %>
 <% else %>
-<%= link_to "Connect with Instagram", "/auth/instagram", class: "btn btn-info btn-block btn-sm", disabled: true %>
-<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "instagram").first), method: :delete %>
+	<%= link_to "/auth/instagram",:class=>"btn btn-block btn-social btn-instagram", disabled: true do %>
+	  <i class="fa fa-instagram"></i> Connect with Instagram
+	<% end %>
+	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "instagram").first), method: :delete %>
 <% end %>
 
 <% unless current_user.connections.where(provider: "pinterest").any? %>
-<%= link_to "Connect with Pinterest", "/auth/pinterest", class: "btn btn-danger btn-block btn-sm" %>
+	<%= link_to "/auth/pinterest",:class=>"btn btn-block btn-social btn-pinterest" do %>
+	  <i class="fa fa-pinterest"></i> Connect with Pinterest
+	<% end %>
 <% else %>
-<%= link_to "Connect with Pinterest", "/auth/pinterest", class: "btn btn-danger btn-block btn-sm", disabled: true %>
-<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "pinterest").first), method: :delete %>
+	<%= link_to "/auth/pinterest",:class=>"btn btn-block btn-social btn-pinterest", disabled: true do %>
+	  <i class="fa fa-pinterest"></i> Connect with Pinterest
+	<% end %>
+	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "pinterest").first), method: :delete %>
 <% end %>
 
 <% unless current_user.connections.where(provider: "tumblr").any? %>
-<%= link_to "Connect with Tumblr", "/auth/tumblr", class: "btn btn-success btn-block btn-sm" %>
+	<%= link_to "/auth/tumblr",:class=>"btn btn-block btn-social btn-tumblr" do %>
+	  <i class="fa fa-tumblr"></i> Connect with Tumblr
+	<% end %>
 <% else %>
-<%= link_to "Connect with Tumblr", "/auth/tumblr", class: "btn btn-success btn-block btn-sm", disabled: true %>
-<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "tumblr").first), method: :delete %>
+	<%= link_to "/auth/tumblr",:class=>"btn btn-block btn-social btn-tumblr", disabled: true do %>
+	  <i class="fa fa-tumblr"></i> Connect with Tumblr
+	<% end %>
+	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "tumblr").first), method: :delete %>
 <% end %>
 
 </div>

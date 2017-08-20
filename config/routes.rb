@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   authenticated :user, -> user { user.admin? } do 
     mount Delayed::Web::Engine, at: '/jobs'
   end

@@ -32,5 +32,13 @@ class User < ActiveRecord::Base
    def tumblr
     self.connections.where(provider: "tumblr").first
    end
+
+   def active_for_authentication?
+     super && self.visible == true # i.e. super && self.is_active
+   end
+
+   def inactive_message
+     "Sorry, this account has been deactivated."
+   end
    
 end
