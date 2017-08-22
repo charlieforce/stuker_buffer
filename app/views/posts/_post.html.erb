@@ -9,11 +9,15 @@
 Scheduled on <%= post.scheduled_at %>
 </div>
 <div class="panel-body">
-<%= post.content %><br/>
-<% if post.attachment.exists? %><%= image_tag post.attachment.url, :size => "300x300" %><% end %>
-</div>
-<div class="panel-footer">
-<p><%= post.state.capitalize %></p>
-<%= link_to "Cancel", cancel_post_path(post), method: :put if post.state == "scheduled" %>
-</div>
+	<%= post.content %><br/>
+	<% if post.attachment.exists? %><%= image_tag post.attachment.url, :size => "300x300" %><% end %>
+	</div>
+	<div class="panel-footer">
+		<div class="col-md-6 col-sm-6">
+			<p><%= post.state.capitalize %></p>
+		</div>
+		<div class="col-md-6 col-sm-6 cancel_button">
+			<%= link_to "Cancel", cancel_post_path(post), method: :put if post.state == "scheduled" %>
+		</div>
+	</div>
 </div>

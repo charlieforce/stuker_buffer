@@ -1,9 +1,9 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
 	validates_presence_of :content
-	validates_presence_of :scheduled_at
+	validates_presence_of :scheduled_at, :if => lambda { |o| o.send_now == false }
 	validates_length_of :content, maximum: 140, message: "less than 140 please"
-	validates_datetime :scheduled_at, :on => :create, :on_or_after => Time.zone.now
+	validates_datetime :scheduled_at, :on => :create, :on_or_after => Time.zone.now, :if => lambda { |o| o.send_now == false }
 	after_create :schedule
 
 	# file attachment
@@ -12,9 +12,16 @@ class Post < ActiveRecord::Base
   	
 	def schedule
 		begin
-			ScheduleJob.set(wait_until: scheduled_at).perform_later(self)
-			self.update_attributes(state: "scheduled")
+			if(send_now == true)
+				ScheduleJob.set(wait_until: Time.current).perform_now(self)
+				self.update_attributes(state: "scheduled")
+			else
+				ScheduleJob.set(wait_until: scheduled_at).perform_later(self)
+				self.update_attributes(state: "scheduled")
+			end
+			
 		rescue Exception => e
+			byebug
 			self.update_attributes(state: "scheduling error", error: e.message)
 		end
 	end
