@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.3'
 
 # Postgresql
 gem 'pg'
@@ -17,8 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.2.1'
-gem 'jquery-ui-rails', '~> 4.2.1'
+gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -49,7 +48,9 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'activeadmin', github: 'activeadmin'
+
+gem 'twitter-bootstrap-rails'
 
 gem "font-awesome-rails"
 
@@ -58,7 +59,6 @@ gem 'simple_form'
 gem 'devise'
 
 # admin panel
-gem "activeadmin", git: "https://github.com/gregbell/active_admin"
 
 gem 'dotenv-rails', groups: [:development]
 
