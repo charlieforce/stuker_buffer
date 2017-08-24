@@ -9,8 +9,8 @@
 
 <%= f.radio_button :send_now, true %> 
 <%= label :post_send_now_true, 'Send Now' %>
-<%= f.radio_button :send_now, false %>
-<%= label :post_send_now_false, 'Send Later', :checked => true %>
+<%= f.radio_button :send_now, false, :checked => true %>
+<%= label :post_send_now_false, 'Send Later' %>
 
 <%= f.input :scheduled_at, as: :datetime_picker %>
 </div>
