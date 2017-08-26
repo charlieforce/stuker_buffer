@@ -17,7 +17,8 @@ Scheduled on <%= post.scheduled_at %>
 			<p><%= post.state.capitalize %></p>
 		</div>
 		<div class="col-md-6 col-sm-6 cancel_button">
-			<%= link_to "Cancel", cancel_post_path(post), method: :put if post.state == "scheduled" %> | 
+			<%= link_to "Cancel", cancel_post_path(post), method: :put if post.state == "scheduled" %>
+			<span><% if post.state == "scheduled" %>| <% end %></span>
 			<%= link_to "Edit", edit_post_path(post) if post.state == "scheduled" %>
 		</div>
 	</div>

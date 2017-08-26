@@ -20,7 +20,7 @@
 	<%= f.input :facebook %>
 	<% end %>
 	<% if current_user.connections.where(provider: "twitter").any? %>
-	<%= f.input :twitter %>
+	<%= f.input :twitter %> <span>(Only 140 characters posted)</span>
 	<% end %>
 	<% if current_user.connections.where(provider: "google_oauth2").any? %>
 	<%= f.input :google_oauth2 %>
