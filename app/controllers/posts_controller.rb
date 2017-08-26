@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-	before_action :set_post, only: [:cancel]	
+	before_action :set_post, only: [:cancel,:edit,:update]	
 
 	def new
 		if current_user.connections.any?
@@ -7,6 +7,9 @@ class PostsController < ApplicationController
 		else
 			redirect_to dashboard_path, notice: "Please connect to a social network first"
 		end
+	end
+
+	def edit
 	end
 
 	def create
@@ -19,6 +22,16 @@ class PostsController < ApplicationController
 				format.html { render :new }
 			end
 		end
+	end
+
+	def update
+		respond_to do |format|
+      if @post.update(post_params)
+        format.html { redirect_to dashboard_path, notice: "Post was successfully updated." }
+      else
+        format.html { render action: 'edit' }
+      end
+    end
 	end
 
 	def cancel
