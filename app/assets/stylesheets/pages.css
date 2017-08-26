@@ -9,3 +9,8 @@
 .landing_title {
 	padding-top: 200px;
 }
+.custom_btn{
+	padding: 1px 7px !important;
+	border-radius: 2px !important;
+	font-size: 11px;
+}

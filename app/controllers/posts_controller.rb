@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-	before_action :set_post, only: [:cancel,:edit,:update]	
+	before_action :set_post, only: [:cancel,:edit,:update,:destroy]	
 
 	def new
 		if current_user.connections.any?
@@ -37,6 +37,13 @@ class PostsController < ApplicationController
 	def cancel
 		@post.update_attributes(state: "canceled")
 		redirect_to dashboard_path, notice: "Post was successfully canceled"
+	end
+
+	def destroy
+		@post.destroy
+    respond_to do |format|
+      format.html { redirect_to dashboard_path, notice: "Post was successfully deleted." }
+    end
 	end
 
 	private
