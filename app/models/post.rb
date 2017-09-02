@@ -1,27 +1,39 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
 	validates_presence_of :content
-	validates_presence_of :scheduled_at, :if => lambda { |o| o.send_now == false }
+	validates_presence_of :scheduled_at, :if => lambda { |o| o.sending_mode != "Now" }
 	validates_length_of :content, maximum: 140, message: "less than 140 please"
-	validates_datetime :scheduled_at, :on => :create, :on_or_after => Time.zone.now, :if => lambda { |o| o.send_now == false }
-	after_create :schedule
+	validates_datetime :scheduled_at, :on => :create, :on_or_after => Time.zone.now, :if => lambda { |o| o.sending_mode == "Now" }
+	attr_accessor :weekdays
+
+	enum sending_mode: [:Now, :Once, :Recurring]
 
 	# file attachment
 	has_attached_file :attachment, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 	validates_attachment_content_type :attachment, :content_type => ["video/mp4", "image/jpg", "image/jpeg", "image/png", "image/gif"]  
   	
-	def schedule
+	def schedule(weekdays)
 		begin
-			if(send_now == true)
+			if(self.sending_mode == "Now")
 				ScheduleJob.set(wait_until: Time.current).perform_now(self)
 				self.update_attributes(state: "scheduled")
-			else
-				ScheduleJob.set(wait_until: scheduled_at).perform_later(self)
+			elsif (self.sending_mode == "Recurring")
+				ScheduleJob.set(wait_until: self.scheduled_at).perform_later(self)
+				start_date = self.scheduled_at.to_date
+				end_date = self.end_time.to_date
+				days = weekdays.map{|a| a.to_i}
+				result = (start_date..end_date).to_a.select {|k| days.include?(k.wday)}
+
+				result.each do |date|
+					ScheduleJob.set(wait_until: date.to_time).perform_later(self)
+				end
+				self.update_attributes(state: "scheduled")
+			else	
+				ScheduleJob.set(wait_until: self.scheduled_at).perform_later(self)
 				self.update_attributes(state: "scheduled")
 			end
 			
 		rescue Exception => e
-			byebug
 			self.update_attributes(state: "scheduling error", error: e.message)
 		end
 	end
@@ -48,7 +60,9 @@ class Post < ActiveRecord::Base
 					to_tumblr
 				end				
 			end
-			self.update_attributes(state: "posted")
+			if self.sending_mode != "Recurring" && self.end_time < Time.current
+				self.update_attributes(state: "posted")
+			end
 		rescue Exception => e			
 			self.update_attributes(state: "posting error", error: e.message)
 		end

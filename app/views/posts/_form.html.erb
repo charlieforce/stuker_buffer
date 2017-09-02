@@ -1,18 +1,32 @@
 <%= simple_form_for @post, :html => {:multipart => true} do |f| %>
 <%= f.error_notification %>
 <div class="form-inputs">
-<%= f.input :content, required: true, maxlength: 140 %>
-<!-- <span id="maxCharacters">140 characters remaining</span><br/> -->
-<p>Photo or Video</p>
-<%= f.file_field :attachment %><br/>
-<p>This post will be scheduled in <b><%= Time.zone.name %></b> time</p>
+  <%= f.input :content, required: true, maxlength: 140 %>
+  <!-- <span id="maxCharacters">140 characters remaining</span><br/> -->
+  <p>Photo or Video</p>
+  <%= f.file_field :attachment %><br/>
 
-<%= f.radio_button :send_now, true %> 
-<%= label :post_send_now_true, 'Send Now' %>
-<%= f.radio_button :send_now, false, :checked => true %>
-<%= label :post_send_now_false, 'Send Later' %>
+  <%= f.select("sending_mode", options_for_select(Post.sending_modes.keys.to_a,@post.sending_mode || "Once"),{},{:class=>"form-control form-group",:disabled => @post.persisted?}) %>
 
-<%= f.input :scheduled_at, as: :datetime_picker %>
+  <div class="recurring">
+    <%= check_box_tag "weekdays[]", 1 %><label>Monday</label>
+    <%= check_box_tag "weekdays[]", 2 %><label>Tuesday</label>
+    <%= check_box_tag "weekdays[]", 3 %><label>Wednesday</label>
+    <%= check_box_tag "weekdays[]", 4 %><label>Thursday</label>
+    <%= check_box_tag "weekdays[]", 5 %><label>Friday</label>
+    <%= check_box_tag "weekdays[]", 6 %><label>Saturday</label>
+    <%= check_box_tag "weekdays[]", 0 %><label>Sunday</label>
+  </div>
+
+  <div class="once">
+    <%= f.input :scheduled_at, as: :datetime_picker,:disabled => @post.persisted? %>
+    <p>This post will be scheduled in <b><%= Time.zone.name %></b> time</p>
+  </div>
+
+  <div class="<% 'recurring' unless @post.persisted? %>">
+    <%= f.input :end_time, as: :datetime_picker,:disabled => @post.persisted? %>
+  </div>
+
 </div>
 
 <div class="form-inputs">

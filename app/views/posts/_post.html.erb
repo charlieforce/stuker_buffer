@@ -14,7 +14,7 @@ Scheduled on <%= post.scheduled_at %>
 	</div>
 	<div class="panel-footer">
 		<div class="col-md-6 col-sm-6">
-			<p><%= post.state.capitalize %></p>
+			<p><%= post.state.capitalize %><span> (Recurring) <% post.sending_mode == "Recurring" && post.end_time > Time.current %></span></p>
 		</div>
 		<div class="col-md-6 col-sm-6 cancel_button">
 			<% if post.state == "scheduled" %>

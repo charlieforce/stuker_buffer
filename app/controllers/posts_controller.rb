@@ -13,10 +13,12 @@ class PostsController < ApplicationController
 	end
 
 	def create
+		byebug
 		@post = current_user.posts.new(post_params)
 
 		respond_to do |format|
 			if @post.save
+				@post.schedule(params[:weekdays])
 				format.html {redirect_to dashboard_path, notice: "Post was successfully created."}
 			else
 				format.html { render :new }
@@ -53,6 +55,6 @@ class PostsController < ApplicationController
 	end
 
 	def post_params
-		params.require(:post).permit(:content, :scheduled_at, :send_now,:state, :user_id, :facebook, :twitter, :google_oauth2, :instagram, :pinterest, :tumblr, :attachment)
+		params.require(:post).permit(:content, :scheduled_at, :sending_mode,:end_time,:state, :user_id, :facebook, :twitter, :google_oauth2, :instagram, :pinterest, :tumblr, :attachment)
 	end
 end
