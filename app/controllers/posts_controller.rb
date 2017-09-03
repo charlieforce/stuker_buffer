@@ -13,7 +13,6 @@ class PostsController < ApplicationController
 	end
 
 	def create
-		byebug
 		@post = current_user.posts.new(post_params)
 
 		respond_to do |format|
