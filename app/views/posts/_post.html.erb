@@ -20,6 +20,9 @@ Scheduled on <%= post.scheduled_at %>
 			<% if post.state == "scheduled" %>
 				<%= link_to "Edit", edit_post_path(post),:class=>"btn btn-success custom_btn" %> |
 				<%= link_to "Delete", post, method: :delete, data: {confirm: "You sure?"},:class=>"btn btn-danger custom_btn" %> |
+			<% elsif post.state == "canceled" %>
+				<%= link_to "Destroy", post, method: :delete, data: {confirm: "You sure?"},:class=>"btn btn-danger custom_btn" %> |
+				<%= link_to "Scheduled", scheduled_post_path(post), method: :put,:class=>"btn btn-success custom_btn" %>
 			<% end %>
 			<%= link_to "Cancel", cancel_post_path(post),:class=>"btn btn-info custom_btn", method: :put if post.state == "scheduled" %>
 			

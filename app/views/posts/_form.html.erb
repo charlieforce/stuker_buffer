@@ -31,10 +31,12 @@
 
 <div class="form-inputs">
 	<% if current_user.connections.where(provider: "facebook").any? %>
-	<%= f.input :facebook %>
+  <% fb_count = current_user.connections.where(provider: "facebook").count %>
+	<%= f.input :facebook %> <span class="count"> <%= "#{fb_count} facebook connections" if fb_count > 1 %></span>
 	<% end %>
 	<% if current_user.connections.where(provider: "twitter").any? %>
-	<%= f.input :twitter %> <span>(Only 140 characters posted)</span>
+  <% twitter_count = current_user.connections.where(provider: "twitter").count %>
+	<%= f.input :twitter %> <span class="count">(Only 140 characters posted) <%= "#{twitter_count} twitter connections" if twitter_count > 1 %></span>
 	<% end %>
 	<% if current_user.connections.where(provider: "google_oauth2").any? %>
 	<%= f.input :google_oauth2 %>
@@ -50,8 +52,8 @@
 	<% end %>
 </div>
 
-<div class="form-actions">
-<%= f.button :submit %>
+<div class="form-actions text-center">
+<%= f.button :submit,:class=>"btn btn-primary" %>
 </div>
 
 <% end %>

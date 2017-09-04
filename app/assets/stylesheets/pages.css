@@ -26,3 +26,6 @@
 .recurring input[type="checkbox"]{
 	margin-right: 5px; 
 }
+.count{
+	font-style: italic;
+}

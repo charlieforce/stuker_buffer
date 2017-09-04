@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :posts do 
     member do 
       put :cancel
+      put :scheduled
     end
   end
 

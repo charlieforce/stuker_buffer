@@ -16,10 +16,10 @@
 	  <i class="fa fa-twitter"></i> Connect with Twitter
 	<% end %>
 <% else %>
-	<%= link_to "/auth/twitter",:class=>"btn btn-block btn-social btn-twitter",:disabled=>true do %>
+	<%= link_to "/auth/twitter",:class=>"btn btn-block btn-social btn-twitter" do %>
 	  <i class="fa fa-twitter"></i> Connect with Twitter
 	<% end %>
-	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "twitter").first), method: :delete %>
+	<%= link_to "Delete last Connection", connection_path(current_user.connections.where(provider: "twitter").first), method: :delete %>
 <% end %>
 
 <% unless current_user.connections.where(provider: "facebook").any? %>
@@ -27,10 +27,10 @@
 	  <i class="fa fa-facebook"></i> Connect with Facebook
 	<% end %>
 <% else %>
-	<%= link_to "/auth/facebook",:class=>"btn btn-block btn-social btn-facebook",:disabled=>true do %>
+	<%= link_to "/auth/facebook",:class=>"btn btn-block btn-social btn-facebook" do %>
 	  <i class="fa fa-facebook"></i> Connect with Facebook
 	<% end %>
-	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "facebook").first), method: :delete %>
+	<%= link_to "Delete last Connection", connection_path(current_user.connections.where(provider: "facebook").first), method: :delete %>
 <% end %>
 
 <% unless current_user.connections.where(provider: "google_oauth2").any? %>
