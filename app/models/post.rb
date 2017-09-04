@@ -68,47 +68,50 @@ class Post < ActiveRecord::Base
 		end
 	end
 
-	def to_twitter	
-		if Rails.env.production?
-			# Production
-			client = Twitter::REST::Client.new do |config|
-				config.access_token = self.user.twitter.oauth_token
-				config.access_token_secret = self.user.twitter.secret				
-				config.consumer_key =  ENV['TWITTER_KEY']
-				config.consumer_secret =  ENV['TWITTER_SECRET']
+	def to_twitter
+		self.user.connections.where(provider: "twitter") do |twitter|
+			if Rails.env.production?
+				# Production
+				client = Twitter::REST::Client.new do |config|
+					config.access_token = twitter.oauth_token
+					config.access_token_secret = twitter.secret				
+					config.consumer_key =  ENV['TWITTER_KEY']
+					config.consumer_secret =  ENV['TWITTER_SECRET']
+				end
+				file_url = "/public#{self.attachment.url(:original, timestamp: false)}"
+				if File.exist?(file_url)
+					client.update_with_media(self.content, File.open(file_url))
+				else
+					client.update(self.content)
+				end
+			else 
+				# Development
+				client = Twitter::REST::Client.new do |config|
+					config.access_token = twitter.oauth_token
+					config.access_token_secret = twitter.secret											
+					config.consumer_key 	=  'uPeNCwSluigzuA39sF3NM9gfD'
+					config.consumer_secret 	=  'E3vS7fUCz6fEV3oQcEprVoeRMrlLwg5CF5mLYFY5UEGxMVswSA'
+				end
+				file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
+				if File.exist?(file_url)
+					client.update_with_media(self.content, File.open(file_url))
+				else
+					client.update(self.content)
+				end
 			end
-			file_url = "/public#{self.attachment.url(:original, timestamp: false)}"
-			if File.exist?(file_url)
-				client.update_with_media(self.content, File.open(file_url))
-			else
-				client.update(self.content)
-			end
-		else 
-			# Development
-			client = Twitter::REST::Client.new do |config|
-				config.access_token = self.user.twitter.oauth_token
-				config.access_token_secret = self.user.twitter.secret											
-				config.consumer_key 	=  'uPeNCwSluigzuA39sF3NM9gfD'
-				config.consumer_secret 	=  'E3vS7fUCz6fEV3oQcEprVoeRMrlLwg5CF5mLYFY5UEGxMVswSA'
-			end
-			file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
-			if File.exist?(file_url)
-				client.update_with_media(self.content, File.open(file_url))
-			else
-				client.update(self.content)
-			end
-		end
-		
+		end	
 	end
 
-	def to_facebook		
-		graph = Koala::Facebook::API.new(self.user.facebook.oauth_token)
-		graph.put_connections("me", "feed", message: self.content)
+	def to_facebook
+		self.user.connections.where(provider: "facebook") do |facebook|
+			graph = Koala::Facebook::API.new(facebook.oauth_token)
+			graph.put_connections("me", "feed", message: self.content)
 
-		file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
-		if File.exist?(file_url)
-			graph.put_picture(file_url)
-		end		
+			file_url = "#{Rails.root}/public#{self.attachment.url(:original, timestamp: false)}"
+			if File.exist?(file_url)
+				graph.put_picture(file_url)
+			end
+		end				
 	end
 
 	def to_google_oauth2
