@@ -39,7 +39,8 @@
 	<%= f.input :twitter %> <span class="count">(Only 140 characters posted) <%= "#{twitter_count} twitter connections" if twitter_count > 1 %></span>
 	<% end %>
 	<% if current_user.connections.where(provider: "google_oauth2").any? %>
-	<%= f.input :google_oauth2 %>
+  <% google_count = current_user.connections.where(provider: "google_oauth2").count %>
+	<%= f.input :google_oauth2 %> <span class="count"> <%= "#{google_count} Google connections" if fb_count > 1 %></span>
 	<% end %>
 	<% if current_user.connections.where(provider: "instagram").any? %>
 	<%= f.input :instagram %>

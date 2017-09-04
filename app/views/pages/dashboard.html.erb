@@ -38,7 +38,7 @@
 	  <i class="fa fa-google"></i> Connect with Google
 	<% end %>
 <% else %>
-	<%= link_to "/auth/google_oauth2",:class=>"btn btn-block btn-social btn-google-plus",:disabled=>true do %>
+	<%= link_to "/auth/google_oauth2",:class=>"btn btn-block btn-social btn-google-plus" do %>
 	  <i class="fa fa-google"></i> Connect with Google
 	<% end %>
 	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "google_oauth2").first), method: :delete %>
