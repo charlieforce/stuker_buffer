@@ -31,25 +31,33 @@
 
 <div class="form-inputs">
 	<% if current_user.connections.where(provider: "facebook").any? %>
-  <% fb_count = current_user.connections.where(provider: "facebook").count %>
-	<%= f.input :facebook %> <span class="count"> <%= "#{fb_count} facebook connections" if fb_count > 1 %></span>
+    <% fb_count = current_user.connections.where(provider: "facebook").count %>
+  	<%= f.input :facebook %> <span class="count"> <%= "#{fb_count} facebook connections" if fb_count > 1 %></span>
 	<% end %>
+
 	<% if current_user.connections.where(provider: "twitter").any? %>
-  <% twitter_count = current_user.connections.where(provider: "twitter").count %>
-	<%= f.input :twitter %> <span class="count">(Only 140 characters posted) <%= "#{twitter_count} twitter connections" if twitter_count > 1 %></span>
+    <% twitter_count = current_user.connections.where(provider: "twitter").count %>
+  	<%= f.input :twitter %> <span class="count">(Only 140 characters posted) <%= "#{twitter_count} twitter connections" if twitter_count > 1 %></span>
 	<% end %>
+
 	<% if current_user.connections.where(provider: "google_oauth2").any? %>
-  <% google_count = current_user.connections.where(provider: "google_oauth2").count %>
-	<%= f.input :google_oauth2 %> <span class="count"> <%= "#{google_count} Google connections" if fb_count > 1 %></span>
+    <% google_count = current_user.connections.where(provider: "google_oauth2").count %>
+  	<%= f.input :google_oauth2 %> <span class="count"> <%= "#{google_count} Google connections" if google_count > 1 %></span>
 	<% end %>
+
 	<% if current_user.connections.where(provider: "instagram").any? %>
-	<%= f.input :instagram %>
+    <% insta_count = current_user.connections.where(provider: "instagram").count %>
+  	<%= f.input :instagram %> <span class="count"> <%= "#{insta_count} Instagram connections" if insta_count > 1 %></span>
 	<% end %>
+
 	<% if current_user.connections.where(provider: "pinterest").any? %>
-	<%= f.input :pinterest %>
+    <% pinterest_count = current_user.connections.where(provider: "pinterest").count %>
+	  <%= f.input :pinterest %> <span class="count"> <%= "#{pinterest_count} Pinterest connections" if pinterest_count > 1 %></span>
 	<% end %>
+
 	<% if current_user.connections.where(provider: "tumblr").any? %>
-	<%= f.input :tumblr %>
+    <% tumblr_count = current_user.connections.where(provider: "tumblr").count %>
+	  <%= f.input :tumblr %> <span class="count"> <%= "#{tumblr_count} Tumblr connections" if tumblr_count > 1 %></span>
 	<% end %>
 </div>
 

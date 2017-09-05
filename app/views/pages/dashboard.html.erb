@@ -49,7 +49,7 @@
 	  <i class="fa fa-instagram"></i> Connect with Instagram
 	<% end %>
 <% else %>
-	<%= link_to "/auth/instagram",:class=>"btn btn-block btn-social btn-instagram", disabled: true do %>
+	<%= link_to "/auth/instagram",:class=>"btn btn-block btn-social btn-instagram" do %>
 	  <i class="fa fa-instagram"></i> Connect with Instagram
 	<% end %>
 	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "instagram").first), method: :delete %>
@@ -60,7 +60,7 @@
 	  <i class="fa fa-pinterest"></i> Connect with Pinterest
 	<% end %>
 <% else %>
-	<%= link_to "/auth/pinterest",:class=>"btn btn-block btn-social btn-pinterest", disabled: true do %>
+	<%= link_to "/auth/pinterest",:class=>"btn btn-block btn-social btn-pinterest" do %>
 	  <i class="fa fa-pinterest"></i> Connect with Pinterest
 	<% end %>
 	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "pinterest").first), method: :delete %>
@@ -71,7 +71,7 @@
 	  <i class="fa fa-tumblr"></i> Connect with Tumblr
 	<% end %>
 <% else %>
-	<%= link_to "/auth/tumblr",:class=>"btn btn-block btn-social btn-tumblr", disabled: true do %>
+	<%= link_to "/auth/tumblr",:class=>"btn btn-block btn-social btn-tumblr" do %>
 	  <i class="fa fa-tumblr"></i> Connect with Tumblr
 	<% end %>
 	<%= link_to "Delete Connection", connection_path(current_user.connections.where(provider: "tumblr").first), method: :delete %>
